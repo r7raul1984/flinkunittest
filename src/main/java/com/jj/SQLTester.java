@@ -87,7 +87,7 @@ public class SQLTester {
         // Register it so we can use it in SQL
         tableEnv.registerDataStream("sensors", dataset, "room, temperature, creationDate, rowtime.rowtime");
 
-        String query = "SELECT room, TUMBLE_END(rowtime, INTERVAL '10' SECOND), AVG(temperature) AS avgTemp FROM sensors GROUP BY TUMBLE(rowtime, INTERVAL '10' SECOND), room";
+        String query = "SELECT room, TUMBLE_START(rowtime, INTERVAL '10' SECOND),TUMBLE_END(rowtime, INTERVAL '10' SECOND), AVG(temperature) AS avgTemp FROM sensors GROUP BY TUMBLE(rowtime, INTERVAL '10' SECOND), room";
         Table table = tableEnv.sql(query);
 
         // Just for printing purposes, in reality you would need something other than Row
